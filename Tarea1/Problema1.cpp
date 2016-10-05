@@ -9,7 +9,7 @@ using std::cin;
 using std::cout;
 using std::endl;
 
-void joinAreas(vector< vector<int> > *areas, int currentPoint, int toReplace);
+void joinAreas(vector< vector<int> > *areas, int currentPoint, int toReplace, vector<int> *counts);
 
 	// Posiciones respecto a la coordenada actual (X)
 	// +---+---+---+
@@ -23,14 +23,11 @@ void joinAreas(vector< vector<int> > *areas, int currentPoint, int toReplace);
 int main(void)
 {
 	std::string string;
-	vector< vector<int> > results;
-	int problems = 0;
 
 	while ( getline(std::cin, string) )
 	{
-		// contador para los problemas y matriz para el problema actual, 
+		// matriz para el problema actual, 
 		// en donde -1 será tierra (L) y agua (W) estará representado por una etiqueta de área
-		problems++;
 		vector< vector<int> > areas;
 		vector<int> counts;
 		// contador de áreas
@@ -53,39 +50,40 @@ int main(void)
 				if (string[i] == 'W')
 				{
 					int currentPoint = -1;
-
 					// se revisa (de ser posible) las posiciones 1, 2, 3 y 4, de encontrarse, la posición actual se agrega a el área ya existente
 					// posición 1
-					if ( i>1 && nlines>1 && areas[nlines-2][i-1] > -1)
+					if ( i>0 && nlines>1 && areas[nlines-2][i-1] > -1)
 					{
-						counts[areas[nlines-2][i-1]]++;
 						currentPoint = areas[nlines-2][i-1];
+						counts[currentPoint]++;
 					}
 					// posición 2
 					if ( nlines>1 && areas[nlines-2][i] > -1 && currentPoint != areas[nlines-2][i])
 					{
+						// Si el punto actual no tiene un área asignada por la casilla anterior
 						if (currentPoint == -1)
 						{
 							currentPoint = areas[nlines-2][i];
+							counts[currentPoint]++;
 						}
+						// Si ya tenía un área, las une
 						else
 						{
-							joinAreas(&areas, currentPoint, areas[nlines-2][i]);
+							joinAreas(&areas, currentPoint, areas[nlines-2][i], &counts);
 						}
-						counts[currentPoint]++;
 					}
 					// posición 3
-					if ( i<lmax-2 && nlines>1 && areas[nlines-2][i+1] > -1 && currentPoint != areas[nlines-2][i+1])
+					if ( i<lmax-1 && nlines>1 && areas[nlines-2][i+1] > -1 && currentPoint != areas[nlines-2][i+1])
 					{
 						if (currentPoint == -1)
 						{
 							currentPoint = areas[nlines-2][i+1];
+							counts[currentPoint]++;
 						}
 						else
 						{
-							joinAreas(&areas, currentPoint, areas[nlines-2][i+1]);
+							joinAreas(&areas, currentPoint, areas[nlines-2][i+1], &counts);
 						}
-						counts[currentPoint]++;
 					}
 					// posición 4
 					if ( i>0 && areas[nlines-1][i-1] > -1 && currentPoint != areas[nlines-1][i-1])
@@ -93,12 +91,12 @@ int main(void)
 						if (currentPoint == -1)
 						{
 							currentPoint = areas[nlines-1][i-1];
+							counts[currentPoint]++;
 						}
 						else
 						{
-							joinAreas(&areas, currentPoint, areas[nlines-1][i-1]);
+							joinAreas(&areas, currentPoint, areas[nlines-1][i-1], &counts);
 						}
-						counts[currentPoint]++;
 					}
 
 					// de no encontrarse un área colindante, se marca el punto como una nueva área
@@ -109,7 +107,7 @@ int main(void)
 						currentPoint = pools-1;
 					}
 
-					// se guarda en areas el valor corespondiente a el área
+					// se guarda en areas el valor corespondiente al área
 					areas[nlines-1][i] = currentPoint;
 				}
 				else
@@ -165,8 +163,8 @@ int main(void)
 	return 0;
 }
 
-// busca etiquetas toReplace y las cambia a currentPoint
-void joinAreas(vector< vector<int> > *areas, int currentPoint, int toReplace)
+// busca etiquetas toReplace y las cambia a currentPoint, retorna el número de reemplazos
+void joinAreas(vector< vector<int> > *areas, int currentPoint, int toReplace, vector<int> *counts)
 {
 	for (unsigned int i = 0; i < (*areas).size(); ++i)
 	{
@@ -175,8 +173,8 @@ void joinAreas(vector< vector<int> > *areas, int currentPoint, int toReplace)
 			if ((*areas)[i][j] == toReplace)
 			{
 				(*areas)[i][j] = currentPoint;
+				(*counts)[currentPoint]++;
 			}
 		}
 	}
-
 }
