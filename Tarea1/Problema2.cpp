@@ -64,7 +64,7 @@ int main(void)
 	cout << q << '\n';
 	getline(cin >> std::ws, data);
 
-	for(unsigned int i=0; i < q; i++)
+	for(int i=0; i < q; i++)
 	{
 		stringstream stream(data);
 		int v,p;
