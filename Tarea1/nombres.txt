@@ -1,0 +1,2 @@
+Nombre		ROL		Trabajo
+José Castro	201273514-9	P1 + P2
