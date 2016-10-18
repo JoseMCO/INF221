@@ -38,7 +38,7 @@ int main(void)
 	int j = 0;
 	int parent = -1;
 	int height = 0;
-	for(int i=0; i<structure.length(); i++ )
+	for(unsigned int i=0; i<structure.length(); i++ )
 	{
 		// si hay un (, es porque hay un nuevo hijo, por lo que se inserta el nuevo nodo con los datos correspondientes y se aumenta la altura
 		if(structure[i]=='(')
@@ -64,7 +64,7 @@ int main(void)
 	cout << q << '\n';
 	getline(cin >> std::ws, data);
 
-	for(int i=0; i < q; i++)
+	for(unsigned int i=0; i < q; i++)
 	{
 		stringstream stream(data);
 		int v,p;
