@@ -1,1 +1,4 @@
 *.out
+*.pdf
+.DS_Store
+*.tar.gz
