@@ -8,48 +8,53 @@ float sum(float P[], int i, int j);
 
 float spectedCost(float P[], int n)
 {
-  float cost[n][n];
-
+  float C[n][n];
+  // Completa la matriz de costos,
+  // en la diagonal con las probabilidades y el resto con 0s
   for (int i = 0; i<n; i++)
   {
     for (int j = 0; j<n; j++)
     {
       if (i==j)
       {
-        cost[i][j]=P[i];
+        C[i][j]=P[i];
       }
       else
       {
-        cost[i][j]=0;
+        C[i][j]=0;
       }
     }
   }
 
-  for (int d=2; d<=n; d++)
-  {
-    for (int i=0; i<=n-d+1; i++)
-    {
-      int j = i+d-1;
-      cost[i][j] = INT_MAX;
+  C[n][n-1]=0;
 
-      for (int r=i; r<=j; r++)
+  for (int d=0; d<=n-1; d++)
+  {
+    for (int i=0; i<=n-d; i++)
+    {
+      int j = i+d;
+      float minval = INT_MAX;
+
+      for (int k=i; k<=j; k++)
       {
-        float c = ((r > i)? cost[i][r-1]:0) + ((r < j)? cost[r+1][j]:0) + sum(P, i, j);
-        if (c < cost[i][j])
-          cost[i][j] = c;
+        float c = ((k > i)? C[i][k-1]:0) + ((k < j)? C[k+1][j]:0);
+        if (c < minval) {
+          minval = c;
+        }
       }
+      C[i][j] = minval + sum(P, i, j);
     }
 		// for (int i = 0; i<n; i++)
     // {
     //   for (int j = 0; j<n; j++)
     //   {
-    //     printf("%.2f ", cost[i][j]);
+    //     printf("%.2f ", C[i][j]);
     //   }
     //   printf("\n");
     // }
     // printf("\n");
   }
-  return cost[0][n-1];
+  return C[0][n-1];
 }
 
 float sum(float P[], int i, int j)
