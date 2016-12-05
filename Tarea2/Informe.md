@@ -3,9 +3,9 @@
 ## Problema 1 - El Accionista
 El algoritmo implementado corresponde a la solución del problema de "Suma Máxima Contigua".
 
-Para calcular la suma máxima en una lista de valores, primero se calcula la suma máxima de cada una de sus mitades (S<sub>1</sub> y S<sub>2</sub>). La solución del problema corresponderá al max { S<sub>1</sub>, S<sub>2</sub>, S<sub>1</sub>+2<sub>r</sub> }. Para calcular las sumas de las mitades se aplica el mismo método recursivamente.
+Para calcular la suma máxima en una lista de valores, primero se calcula la suma máxima de cada una de sus mitades (S<sub>1</sub> y S<sub>2</sub>). La solución del problema corresponderá al max { S<sub>1</sub>, S<sub>2</sub>, S<sub>1</sub> U S<sub>2</sub> }. Para calcular las sumas de las mitades se aplica el mismo método recursivamente.
 
-Como para la resolución se necesita dividir el problema en dos mitades iguales, la complejidad del "Divide" corresponde a 2T(n/2). Por otro lado, la etapa de "Conquer/Combine" es T(n), ya que debe sumar linealmente las soluciones de ambas mitades. Finalmente, la complejidad queda:
+Como para la resolución se necesita dividir el problema en dos mitades iguales, la complejidad del "Divide" corresponde a 2T(n/2). Por otro lado, la etapa de "Conquer/Combine" es T(n), ya que debe sumar linealmente desde el inicio de S<sub>1</sub> hasta el fin de S<sub>2</sub>. Finalmente, la complejidad queda:
 
 T(n) = 2T(n/2) + T(n)
 
