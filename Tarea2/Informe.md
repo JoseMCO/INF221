@@ -14,4 +14,4 @@ lo que de acuerdo al Teorema maestro equivale a T(nLogn).
 Otra posible solución a este problema es el "Algoritmo de Kadane", el que hace uso de la técnica de programación dinámica y tiene una complejidad O(n)
 
 ## Problema 2 - Árboles Binarios de Búsqueda Óptimos
-Para la solución de este problema se irá calculando paso a paso el costo mínimo al ir uniendo los n árboles que inicialmente tienen un solo elemento (n<sub>i</sub>). En cada paso se calculará el árbol de costo mínimo que se genera al unir dos árboles adyacentes n<sub>j</sub> y n <sub>j+1</sub>. Para esto se busca el mínimo entre el costo del árbol creado usando a n<sub>j</sub> como raíz y el creado usando a n<sub>j+1</sub>
+Para la solución de este problema se irá calculando paso a paso el costo mínimo al ir uniendo los n árboles que inicialmente tienen un solo elemento (n<sub>i</sub>). En cada paso se calculará el árbol de costo mínimo que se genera al unir dos árboles adyacentes n<sub>j</sub> y n <sub>j+1</sub>. Para esto se busca el mínimo entre el costo del árbol creado usando a n<sub>j</sub> como raíz y el creado usando a n<sub>j+1</sub>.
